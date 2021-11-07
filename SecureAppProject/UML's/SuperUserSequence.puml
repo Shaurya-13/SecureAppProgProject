@@ -1,0 +1,45 @@
+@startuml
+
+autonumber
+
+actor SuperUser
+participant LoginController
+participant SuperUserController
+participant StaffDAO
+participant BookListDAO
+Database BooksDB
+Database StaffDB
+'Login'
+SuperUser->LoginController:btnLoginAction()
+LoginController->StaffDAO: validateUser()
+StaffDAO->StaffDB:querying SuperUser details to verify
+alt
+    StaffDB-->SuperUserController:Login Successful,GoToSuperUserPage()
+    SuperUserController-->SuperUser:Login successful
+else Invalid Credentials
+     StaffDB-->SuperUser:Login failed
+
+end
+'Show books'
+SuperUserController->BookListDAO:ShowBooks()
+BookListDAO->BooksDB:getBooksList(),Retrieve Books list
+BooksDB-->SuperUserController:Full Book list displayed
+
+'UpdateBooks'
+SuperUser->SuperUserController:btnUpdateAction()
+SuperUserController->BooksDB:UpdateBook()
+BooksDB-->BookListDAO:Book details updated
+BookListDAO-->SuperUserController:Chosen Book details amended
+SuperUserController-->SuperUser:Book details successfully updated
+'DeleteBooks'
+SuperUser->SuperUserController:btnDeleteAction()
+SuperUserController->BooksDB:DeleteBook()
+BooksDB-->BookListDAO:Book removed
+BookListDAO-->SuperUserController:Chosen Book deleted
+SuperUserController-->SuperUser:Book deletion successful
+'Log out'
+SuperUser->SuperUserController:btnBackAction()
+SuperUserController->StaffDB:goToLoginPage()
+StaffDB-->LoginController:Logout successful and returned to login page
+LoginController-->SuperUser:Logged out of SuperUser system
+@enduml

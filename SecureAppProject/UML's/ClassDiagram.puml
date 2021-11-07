@@ -1,0 +1,105 @@
+@startuml
+
+package "model" #8A8AFF{
+class Books{
+-title String
+-author String
+-bookRefId String
+-pages int
+-year int
++getBookRefId() String
++getTitle() String
++setTitle() void
++getAuthor() String
++setAuthor() void
++getYear() int
++setYear() void
++getPages() int
++setPages() void
+}
+}
+package "persistance" #8A8AFF{
+class BookListDAO{
+- static onlyInstance
++ static  getBookList() ObservableList
++ static updateBookItem() void
+}
+class StaffDAO{
++static validateUser() boolean
++static getDesignation() String
++static addUser() int
+}
+}
+package "insertBookVerification" #8A8AFF{
+Abstract class Book{
+#refId1 String
+#refId2 String
+#refIdCheck String
+# message String
++getMessage() String
++abstract confirmBookRefId() boolean
+}
+class BookFactory{
++getBookRefIdTest() Book
+}
+}
+package "presentation" #8A8AFF{
+class IssuedBookController{
++backBtnAction() void
++ returnBookAction() void
+# showMessage() void
+-getIssuedBookList() ObservableList
++showBooks() void
+-returnBook() void
+-deleteBook() void
++displayAction() void
+}
+class AdminController{
++btnBackAction() void
++btnAction() void
++btnAction2() void
+#showMessage()
+-insertBook() void
+-confirmBookRefId() String
+-deleteBookItem()
++handleMouseAction()
++showBooks()
+}
+class UserController{
++btnBackAction()
++btnIssuedBookAction()
++issueBtnAction()
+#showMessage()
++goToCustomerBookIssuePage()
++showBooks()
+-issueBook()
+-removeBook()
+-searchBook()
+}
+class SuperController{
++btnBackAction()
++btnUpdateAction()
++btnDeleteAction()
+#showMessage()
+-deleteBookItem()
++showBooks()
+}
+}
+IssuedBookController-- UserController
+
+Books----|> SuperController
+Books----|> IssuedBookController
+Books----|> AdminController
+Books----|> UserController
+
+StaffDAO"1"*-- "1" SuperController
+StaffDAO"1"*-- "1" AdminController
+StaffDAO"1"*-- "many" UserController
+
+BookListDAO"1"*--- "1"SuperController
+BookListDAO"1"*--- "1"AdminController
+BookListDAO*--- UserController
+
+BookFactory*---- AdminController
+Book*-BookFactory
+@enduml

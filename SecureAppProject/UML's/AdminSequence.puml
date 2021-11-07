@@ -1,0 +1,55 @@
+@startuml
+
+autonumber
+actor Admin
+participant LoginController
+participant AdminController
+participant BookFactory
+participant StaffDAO
+participant BookListDAO
+Database BooksDB
+Database StaffDB
+'Login'
+Admin->LoginController:btnLoginAction()
+LoginController->StaffDAO: validateUser()
+StaffDAO->StaffDB:querying Admin details to verify
+alt Invalid Credentials
+    StaffDB-->Admin:Login failed
+end
+    StaffDB-->AdminController:Login Successful,GoToAdminPage()
+    AdminController-->Admin:Login successful
+'Show books'
+AdminController->BookListDAO:ShowBooks()
+BookListDAO->BooksDB:getBooksList(),Retrieve Books list
+BooksDB-->AdminController:Full Book list displayed
+'InsertBooks'
+Admin->AdminController:InsertBook()
+AdminController->BookFactory:ConfirmBookrefId()
+BookFactory->BookFactory:getBookRefIdTest()
+alt getBookRefIdTest all requirements met, tests passed
+    BookFactory->BooksDB:referenceId confirmed
+    BooksDB-->BookListDAO:Book inserted
+    BookListDAO-->Admin:Book insert successful
+else getBookRefIdTest requirements not met, test failed
+    BookFactory->BookFactory:getBookRefIdTest() failed
+    BookFactory-->BooksDB:Book insert failed (invalid reference id entered)
+    BooksDB-->AdminController:Book insert failed
+end
+'UpdateBooks'
+Admin->AdminController:btnAction2()'update btn action'
+AdminController->BooksDB:UpdateBook()
+BooksDB-->BookListDAO:Book details updated
+BookListDAO-->AdminController:Chosen Book details amended
+AdminController-->Admin:Book details successfully updated
+'Delete Book'
+Admin->AdminController:btnAction2()'delete btn action'
+AdminController->BooksDB:DeleteBook()
+BooksDB-->BookListDAO:Book Deleted/removed
+BookListDAO-->AdminController:Chosen Book removed
+AdminController-->Admin:Book deleted successfully
+'Log out'
+Admin->AdminController:btnBackAction()
+AdminController->StaffDB:goToLoginPage()
+StaffDB-->LoginController:Logout successful and returned to login page
+LoginController-->Admin:Logged out of admin system
+@enduml

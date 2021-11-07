@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="issuedAnchor" prefHeight="471.0" prefWidth="653.0" style="-fx-background-color: #FF9881;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.IssuedBooksController">
+   <children>
+      <ImageView fitHeight="116.0" fitWidth="124.0" layoutX="529.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8_books_100px.png" />
+         </image></ImageView>
+      <TableView fx:id="tvBooks3" layoutX="128.0" layoutY="32.0" onMouseClicked="#displayAction" prefHeight="274.0" prefWidth="432.0">
+        <columns>
+          <TableColumn fx:id="colTitle3" prefWidth="210.0" text="Title" />
+            <TableColumn fx:id="colAuthor3" prefWidth="220.0" text="Author" />
+        </columns>
+      </TableView>
+      <Button fx:id="returnBtn" layoutX="286.0" layoutY="385.0" mnemonicParsing="false" onAction="#returnBookAction" prefHeight="39.0" prefWidth="116.0" text="Return Book">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_return_30px.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <TextField fx:id="tfTitle3" layoutX="156.0" layoutY="322.0" />
+      <TextField fx:id="tfAuthor3" layoutX="380.0" layoutY="322.0" />
+      <Button layoutX="217.0" layoutY="432.0" mnemonicParsing="false" onAction="#backBtnAction" prefHeight="25.0" prefWidth="255.0" text="Back" />
+      <ImageView fitHeight="116.0" fitWidth="116.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/icons8_books_96px.png" />
+         </image></ImageView>
+      <TextField fx:id="tfYear3" layoutX="156.0" layoutY="347.0" prefHeight="25.0" prefWidth="55.0" />
+      <TextField fx:id="tfPages3" layoutX="380.0" layoutY="347.0" prefHeight="25.0" prefWidth="55.0" />
+      <Label fx:id="messageLabel3" layoutX="230.0" layoutY="306.0" prefHeight="17.0" prefWidth="199.0" textFill="#fc0000" />
+      <TextField fx:id="tfBookRefId3" layoutX="7.0" layoutY="204.0" prefHeight="25.0" prefWidth="116.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="adminBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.AdminController">
+   <left>
+      <AnchorPane fx:id="loginAnchorPane" prefHeight="715.0" prefWidth="218.0" style="-fx-background-color: #985445;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="202.0" fitWidth="213.0" layoutX="5.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_books_100px.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="88.0" fitWidth="214.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Lib_manag.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="202.0" fitWidth="219.0" layoutX="4.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_books_96px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="715.0" prefWidth="655.0" style="-fx-background-color: #FF9881;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnBack" layoutX="144.0" layoutY="651.0" mnemonicParsing="false" onAction="#btnBackAction" prefHeight="25.0" prefWidth="284.0" text="Back" />
+            <Label layoutX="41.0" layoutY="81.0" prefHeight="69.0" prefWidth="280.0" text="Admin Page">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_technical_support_50px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Pane layoutX="11.0" layoutY="150.0" prefHeight="435.0" prefWidth="581.0">
+               <children>
+                  <VBox layoutY="68.0" prefHeight="252.0" prefWidth="58.0" spacing="20.0">
+                     <children>
+                        <Label text="Title">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="20.0" prefWidth="61.0" text="Author">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Year">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Pages">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="51.0" layoutY="68.0" prefHeight="241.0" prefWidth="140.0" spacing="15.0">
+                     <children>
+                        <TextField fx:id="tfTitle" />
+                        <TextField fx:id="tfAuthor" />
+                        <TextField fx:id="tfYear" />
+                        <TextField fx:id="tfPages" />
+                     </children>
+                  </VBox>
+                  <TableView fx:id="tvBooks" layoutX="199.0" layoutY="40.0" onMouseClicked="#handleMouseAction" prefHeight="296.0" prefWidth="382.0">
+                    <columns>
+                      <TableColumn fx:id="colTitle" prefWidth="137.0" text="Title" />
+                        <TableColumn fx:id="colAuth" prefWidth="107.0" text="Author" />
+                        <TableColumn fx:id="colYear" prefWidth="65.0" text="Year" />
+                        <TableColumn fx:id="colPages" prefWidth="72.0" text="Pages" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="146.0" layoutY="346.0" text="BookRefID">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfBookRefId" layoutX="248.0" layoutY="346.0" />
+                  <Label layoutX="109.0" layoutY="394.0" text="Confirm BookRefID">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfConfirmBookRefId" layoutX="248.0" layoutY="391.0" />
+                  <Label fx:id="messageLabel" layoutX="32.0" layoutY="371.0" prefHeight="17.0" prefWidth="535.0" textFill="#f83333">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button fx:id="insertBtn" layoutX="87.0" layoutY="576.0" mnemonicParsing="false" onAction="#btnAction" prefHeight="50.0" prefWidth="100.0" text="Insert">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_add_16px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="delBtn" layoutX="388.0" layoutY="576.0" mnemonicParsing="false" onAction="#btnAction2" prefHeight="50.0" prefWidth="100.0" text="Delete">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_delete_16px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="updateBtn" layoutX="236.0" layoutY="576.0" mnemonicParsing="false" onAction="#btnAction2" prefHeight="50.0" prefWidth="100.0" text="Update">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_update_16px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

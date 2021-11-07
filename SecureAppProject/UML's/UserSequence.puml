@@ -1,0 +1,91 @@
+@startuml
+
+autonumber
+actor User
+participant RegisterController
+participant LoginController
+participant UserController
+participant PasswordChecker
+participant StaffDAO
+participant BooksDAO
+participant IssuedBooksController
+Database BookDB
+Database IssuedBookDB
+Database StaffDB
+
+'Registration'
+User->RegisterController:btnRegistrationAction(),Register
+RegisterController->PasswordChecker:passwordChecker()
+PasswordChecker->PasswordChecker:validatePasswordPin()
+alt passwordChecker() or validatePasswordPin(), failed due to not meeting password/pin requirements
+    PasswordChecker-->RegisterController:Invalid Password, doesen't meet requirements
+    RegisterController-->User:Registration failed
+end
+PasswordChecker->StaffDAO:addUser()
+StaffDAO->StaffDB:insertUserQuery to DB
+StaffDB-->User:User registered as a new Customer
+
+'Login'
+User->LoginController:btnLoginAction()
+LoginController->StaffDAO: validateUser()
+StaffDAO->StaffDB:querying User details to verify
+alt Invalid Credentials
+    StaffDB-->User:Login failed
+end
+StaffDB-->UserController:Login Successful,GoToUserPage()
+UserController-->User:Login successful
+
+'showing the list of books'
+UserController->BooksDAO:showBooks()
+BooksDAO->BookDB:getBooksList()
+BookDB-->UserController:Display full book list on UI
+
+'Search through the list'
+User->UserController:searchBook()
+UserController->BookDB:getBooksList()
+alt Book does not exist
+    BookDB-->UserController:Display empty list returned since book does not exist in the library
+    UserController-->User:Empty list returned
+end
+BookDB-->UserController:Display Book and details of the book searched in the search bar using the searchBook method
+UserController-->User:Individual Book detail requested is displayed
+
+'Issue Book'
+User->UserController:issueBtnAction()
+UserController->IssuedBookDB:issueBook()
+UserController->BookDB:deleteBookItem()
+IssuedBookDB-->UserController:The Book has been added to the customer's issued books list
+BookDB-->UserController:The book that has been issued has been removed from the library book list
+UserController-->User: The book has been Successfully issued
+
+'Displaying all customer issued book list'
+User->UserController:btnIssuedBooksAction()
+UserController->IssuedBooksController:goToCustomerBookIssuedPage()
+IssuedBooksController->IssuedBookDB:showBooks(), getIssuedBooksList()
+alt No boos have been issued, empty List
+    IssuedBookDB-->IssuedBooksController:Display the empty list with no customer issued books
+end
+IssuedBookDB-->IssuedBooksController:Display the whole list containing all customer issued books
+
+'Returning a book'
+User->IssuedBooksController:returnBookAction()
+IssuedBooksController->BookDB:returnBook()
+IssuedBooksController->IssuedBookDB:deleteBookItem()
+alt No Book in the list to return
+    BookDB-->IssuedBooksController:No Book to be returned to the original library book list
+    BookDB-->IssuedBooksController:Since no book had been returned None have been removed from the issued book list
+end
+BookDB-->IssuedBooksController:The Book has been returned to the original library book list
+BookDB-->IssuedBooksController:The book that had been returned has been removed from the issued book list
+IssuedBooksController-->User: The book has been Successfully returned
+
+'Returning to customer library page'
+User->IssuedBooksController:backBtnAction()
+IssuedBooksController-->UserController:User returns to main customer library goToCustomerBookIssuedPage
+
+'Logout'
+User->IssuedBooksController:btnBackAction()
+IssuedBooksController->StaffDB:goToLoginPage()
+StaffDB-->LoginController:Logout successful and returned to login page
+LoginController-->User:Logged out of Customer library system
+@enduml
